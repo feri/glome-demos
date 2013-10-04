@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Shop Window</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css">
+  <link rel="stylesheet" href="/css/gridiculous.css">
+  <script type="text/javascript" src="js/libs/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="js/libs/handlebars-1.0.0.js"></script>
+  <script type="text/javascript" src="js/libs/ember-1.0.0.js"></script>
+  <script type="text/javascript" src="js/libs/ember-data.js"></script>
+</head>
+<body>
+  <script type="text/x-handlebars">
+    <!-- required for Gl8<me integration -->
+    <div class="hidden" id="glome-integration" data-application-token="891d1ab372a3166412d11768ebd14f19">Glome integration element</div>
+    <!-- >8 -->
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="/">{{title}}</a>
+        {{#if controllers.application.loggedin}}
+        <button class="products" {{action products}}>Products</button>
+        <button class="history" {{action history}}>History</button>
+        <button class="logout" {{action logout}}>Logout</button>
+        {{/if}}
+      </div>
+    </div>
+    <div class="server notifications">
+      <span class="item">{{controllers.application.notification}}</span>
+    </div>
+    <content>
+    {{outlet}}
+    </content>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="auth">
+    <p>You have set password protection for Glome. Please enter the password:</p>
+    {{input type="password" size="50" name="password" action="auth"}}
+    <div class="feedback">
+      <span item="error password">Incorrect password</span>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="auth-with-addon">
+    <div class="addon note">Please login with the Glome addon or reload this page.</div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="no-glome-id">
+    <div class="addon note">No Glome ID is available.</div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="products">
+    <div class="grid">
+    {{#each item in model}}
+      <div class="c3">
+        <div class="title">{{item.title}}</div>
+        <img {{bind-attr src=item.content}} alt="product image"/>
+        <!--<a class="more" {{bind-attr href=item.page}}>More info</a>-->
+      </div>
+    {{/each}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="history">
+    <h1>History...</h1>
+    <i>Coming soon!</i>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="loading">
+    <h1>Loading...</h1>
+  </script>
+
+  <script src="js/app.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/routes/application_route.js"></script>
+  <script src="js/routes/index_route.js"></script>
+  <script src="js/routes/auth_route.js"></script>
+  <script src="js/routes/products_route.js"></script>
+  <script src="js/routes/backdoor_route.js"></script>
+  <script src="js/routes/history_route.js"></script>
+  <script src="js/routes/loading_route.js"></script>
+  <script src="js/models/user.js"></script>
+  <script src="js/models/product.js"></script>
+  <script src="js/controllers/application.js"></script>
+  <script src="js/controllers/auth.js"></script>
+  <script src="js/controllers/user.js"></script>
+  <script src="js/controllers/products.js"></script>
+</body>
+</html>

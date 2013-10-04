@@ -1,0 +1,1 @@
+App.HistoryRoute = Ember.Route.extend({});
