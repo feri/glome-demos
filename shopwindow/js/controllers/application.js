@@ -27,9 +27,20 @@ App.ApplicationController = Ember.ArrayController.extend(
     setGlobals: function()
     {
       console.log('start here ---');
+
+      if (!  window.localStorage.getItem('loggedin'))
+      {
+        window.localStorage.setItem('loggedin', false);
+      }
+      if (!  window.localStorage.getItem('addon'))
+      {
+        window.localStorage.setItem('addon', false);
+      }
+
       this.set('glomeid', window.localStorage.getItem('glomeid'));
       this.set('loggedin', window.localStorage.getItem('loggedin') == 'true');
       this.set('addon', window.localStorage.getItem('addon') == 'true');
+
       console.log('globals: glomeid: ' + this.glomeid + ', loggedin: ' + this.loggedin + ', addon: ' + this.addon);
     }
   },
@@ -40,6 +51,7 @@ App.ApplicationController = Ember.ArrayController.extend(
   init: function()
   {
     self = this;
+
     /**
      * Called when glomeid_ready is fired by the addon
      */
@@ -78,7 +90,7 @@ App.ApplicationController = Ember.ArrayController.extend(
      */
     document.addEventListener("addon_loggedout", function(event)
     {
-      window.localStorage.setItem('addon', true);
+      self.send('setGlobals');
 
       if (window.localStorage.getItem('loggedin') == 'false')
       {
